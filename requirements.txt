@@ -1,0 +1,4 @@
+Flask[async]
+flask_cors
+youtube-search-python
+pytube 

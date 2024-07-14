@@ -1,0 +1,92 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <div id="player"></div>
+  <style>
+    .player{
+      padding: 20px;
+    }
+  </style>
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>YouTube Player</title>
+    </head>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>YouTube Player</title>
+      </head>
+      <body>
+        <div id="player-container"></div>
+    
+        <script>
+          var videoIds = ['M7lc1UVf-VE', 'dQw4w9WgXcQ', '3JZ_D3ELwOQ'];
+              var tag = document.createElement('script');
+          tag.src = "https://www.youtube.com/iframe_api";
+
+
+
+          var firstScriptTag = document.getElementsByTagName('script')[0];
+              firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+          var playerContainer = document.getElementById('player-container');
+          var players = [];
+    
+          function onYouTubeIframeAPIReady() {
+            videoIds.forEach(function(videoId, index) {
+              var display_conent = 
+              `
+              <div class="flex flex-row mt-6">
+                <div class="player" id="player+${index}"></div>
+                <div class="heading m-5">Video Title</div>
+                </div>
+              `
+              console.log("did")
+              // var playerDiv = document.createElement(`div`);
+              //   playerDiv.id = 'player' +index;
+              //   playerDiv.className = "player";
+              //   playerDiv.textContent = 'Loading...';
+              playerContainer.innerHTML += display_conent;
+              var player = new YT.Player(`player+${index}`, {
+                height: '390',
+                width: '640',
+                videoId: videoId,
+                playerVars: {
+                  'playsinline': 1
+                },
+                events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+                }
+              });
+    
+              players.push(player);
+            });
+          }
+    
+          function onPlayerReady(event) {
+            event.target.playVideo();
+          }
+    
+          var done = false;
+          function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+              setTimeout(stopVideos, 6000);
+              done = true;
+            }
+          }
+          function stopVideos() {
+            players.forEach(function(player) {
+              player.stopVideo();
+            });
+          }
+        </script>
+      </body>
+    </html>
+    
+  
