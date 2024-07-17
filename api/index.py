@@ -18,7 +18,7 @@ def about():
     return 'About'
 
 @app.route('/watch')
-def about():
+def watch():
     return render_template('hello.html')
 
 @app.route('/search/<query>')
