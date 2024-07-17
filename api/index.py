@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 from flask_cors import CORS, cross_origin
 from youtubesearchpython.__future__ import VideosSearch
 app = Flask(__name__)
@@ -16,6 +16,10 @@ def home():
 @app.route('/about')
 def about():
     return 'About'
+
+@app.route('/watch')
+def about():
+    return render_template('hello.html')
 
 @app.route('/search/<query>')
 async def Search(query):
