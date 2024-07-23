@@ -128,7 +128,7 @@
 <script>
   async function FetchQueryResults() {
     const input_text = document.getElementById("input").value
-      const response = await fetch(`http://adless-yt-api.vercel.app/search/${input_text}`, {
+      const response = await fetch(`https://adless-yt-api.vercel.app/search/${input_text}`, {
       method: 'GET',
       });
       console.log("USER Searched for ",input_text)
