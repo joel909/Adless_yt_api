@@ -48,6 +48,8 @@
       <div id="player-container"></div>
   
       <script>
+        //parsed;
+        var video_titles = [];
         var videoIds = [];
             var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -64,9 +66,9 @@
           videoIds.forEach(function(videoId, index) {
             var display_conent = 
             `
-            <div class="flex flex-row mt-6">
+            <div class="flex bg-grey-200 ml-3 mr-3 p-8 rounded-xl	 border-4 flex-row mt-6">
               <div class="player" id="player+${index}"></div>
-              <div class="heading m-5">Video Title</div>
+              <div id="player_title${index}" class="heading m-5"></div>
               </div>
             `
             console.log("did")
@@ -89,11 +91,21 @@
             });
   
             players.push(player);
+            console.log("printing")
+
+            
           });
         }
   
         function onPlayerReady(event) {
-          event.target.playVideo();
+          //event.target.playVideo();
+          for (let i = 0; i < video_titles.length; i++) {
+              var player_title = document.getElementById(`player_title${i}`);
+              console.log("printing")
+              console.log("parses",video_titles[i])
+              console.log(player_title)
+              player_title.innerText = video_titles[i]
+            }
         }
   
         var done = false;
@@ -116,7 +128,7 @@
 <script>
   async function FetchQueryResults() {
     const input_text = document.getElementById("input").value
-      const response = await fetch(`http://127.0.0.1:8000/search/${input_text}`, {
+      const response = await fetch(`http://adless-yt-api.vercel.app/search/${input_text}`, {
       method: 'GET',
       });
       console.log("USER Searched for ",input_text)
@@ -133,6 +145,7 @@
       h1.innerHTML = ``
   for(let i =0;i<parsed.total_results;i++){
     videoIds.push(parsed.data[i].video_id)
+    video_titles.push(parsed.data[i].title)
   }
   onYouTubeIframeAPIReady()
   
